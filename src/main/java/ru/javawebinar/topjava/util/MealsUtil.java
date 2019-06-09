@@ -18,12 +18,12 @@ import static java.util.stream.Collectors.toList;
 public class MealsUtil {
 
     public static List<Meal> meals = Arrays.asList(
-            new Meal(LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500),
-            new Meal(LocalDateTime.of(2015, Month.MAY, 30, 13, 0), "Обед", 1000),
-            new Meal(LocalDateTime.of(2015, Month.MAY, 30, 20, 0), "Ужин", 500),
-            new Meal(LocalDateTime.of(2015, Month.MAY, 31, 10, 0), "Завтрак", 1000),
-            new Meal(LocalDateTime.of(2015, Month.MAY, 31, 13, 0), "Обед", 500),
-            new Meal(LocalDateTime.of(2015, Month.MAY, 31, 20, 0), "Ужин", 510)
+            new Meal(0, LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500),
+            new Meal(1, LocalDateTime.of(2015, Month.MAY, 30, 13, 0), "Обед", 1000),
+            new Meal(2, LocalDateTime.of(2015, Month.MAY, 30, 20, 0), "Ужин", 500),
+            new Meal(3, LocalDateTime.of(2015, Month.MAY, 31, 10, 0), "Завтрак", 1000),
+            new Meal(5, LocalDateTime.of(2015, Month.MAY, 31, 13, 0), "Обед", 500),
+            new Meal(6, LocalDateTime.of(2015, Month.MAY, 31, 20, 0), "Ужин", 510)
     );
 
     public static List<MealTo> mealsTo = Arrays.asList(
@@ -107,7 +107,17 @@ public class MealsUtil {
         return values.stream().flatMap(identity()).collect(toList());
     }
 
-    private static MealTo createWithExcess(Meal meal, boolean excess) {
-        return new MealTo(meal.getDateTime(), meal.getDescription(), meal.getCalories(), excess);
+    public static MealTo createWithExcess(Meal meal, boolean excess) {
+        return new MealTo(meal.getId(), meal.getDateTime(), meal.getDescription(), meal.getCalories(), excess);
+    }
+
+    public static MealTo createWithExcess700(Meal meal) {
+        return new MealTo(meal.getId(), meal.getDateTime(), meal.getDescription(), meal.getCalories(), meal.getCalories() >= 700);
+    }
+
+    public static List<MealTo> convertToMealsTo(Collection<Meal> meals){
+        return meals.stream().
+                map(e -> createWithExcess(e, e.getCalories() >= 700)).
+                collect(Collectors.toList());
     }
 }

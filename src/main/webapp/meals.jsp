@@ -11,7 +11,7 @@
     .green{color: green}
     .red{color: red}
 </style>
-<h3><a href="index.html">Home</a></h3>
+<h3><a href="index.jsp">Home</a></h3>
 <hr>
 <h2>Meals</h2>
 <table>
