@@ -39,6 +39,7 @@ public class JpaUserRepository implements UserRepository {
 
     @Override
     public User get(int id) {
+
         return em.find(User.class, id);
     }
 
@@ -67,6 +68,7 @@ public class JpaUserRepository implements UserRepository {
 
     @Override
     public List<User> getAll() {
-        return em.createNamedQuery(User.ALL_SORTED, User.class).getResultList();
+        return em.createNamedQuery(User.ALL_SORTED, User.class)
+                .getResultList();
     }
 }
